@@ -18,12 +18,12 @@ app.use(express.json());
 
 // when it starts it should open to index.html
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../../public/index.html'));
+    res.sendFile(path.join(__dirname, '/public/index.html'));
 });
 
 // when the user clicks the notes button send them to that page
 app.get('/notes', (req, res) => {
-    res.sendFile(path.join(__dirname, '../../public/notes.html'));
+    res.sendFile(path.join(__dirname, '/public/notes.html'));
 });
 
 
