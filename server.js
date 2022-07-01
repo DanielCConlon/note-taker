@@ -1,12 +1,15 @@
 const express = require('express');
-const fs = require('fs');
 const path = require('path');
-const db = require('./db/db.json');
 
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+const apiRoutes = require('');
+const htmlRoutes = require('');
 
+
+
+// ---------------- Middle ware
 // link to static assets
 app.use(express.static('public'));
 
@@ -15,22 +18,12 @@ app.use(express.urlencoded({ extended: true }));
 
 // parse incoming json data
 app.use(express.json());
+// ----------------
 
-// when it starts it should open to index.html
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '/public/index.html'));
-});
 
-// when the user clicks the notes button send them to that page
-// returns the notes.html file
-app.get('/notes', (req, res) => {
-    res.sendFile(path.join(__dirname, '/public/notes.html'));
-});
-
-// handle any url that isnt mapped
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '/public/index.html'));
-});
+// api and html routes
+app.use('/api', apiRoutes);
+app.use('/', htmlRoutes);
 
 
 app.listen(PORT, () => {
