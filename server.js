@@ -22,8 +22,14 @@ app.get('/', (req, res) => {
 });
 
 // when the user clicks the notes button send them to that page
+// returns the notes.html file
 app.get('/notes', (req, res) => {
     res.sendFile(path.join(__dirname, '/public/notes.html'));
+});
+
+// handle any url that isnt mapped
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '/public/index.html'));
 });
 
 
