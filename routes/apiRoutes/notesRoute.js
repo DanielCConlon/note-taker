@@ -2,6 +2,9 @@ const notes = require('../../db/db.json');
 const fs = require('fs');
 const router = require('express').Router();
 
+// helper method for getting unique ids
+const uuid = require('../../helpers/uuid');
+
 const { 
     filterByQuery,
     findById,
@@ -9,7 +12,7 @@ const {
     validateNote
  } = require('../../lib/notes');
 
-// need to generate unique ids
+// generate unique ids
 
 
 router.get('/notes', (req, res) => {
@@ -33,11 +36,11 @@ router.get('/notes/:id', (req, res) => {
 
 // create a new note
 router.post('/notes', (req, res) =>{
-    req.body.id = notes.length.toString();
+    req.body.id = uuid;
 
     // if any data is incorrect, send 400 error back
     if(!validateNote(req.body)) {
-        res.status(400).send('The animal is not properly formatted.')
+        res.status(400).send('The note is not properly formatted.')
     }
     else {
         const newNote = createNewNote(req.body, notes);
