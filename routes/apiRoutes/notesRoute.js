@@ -34,19 +34,6 @@ router.get('/notes/:id', (req, res) => {
     }
 });
 
-router.delete('/notes/:id', (req, res) => {
-    const result = findById(req.params.id, notes);
-
-    if(result){
-        var oldNotes = notes;
-        let filteredNotes = oldNotes.filter((note) => note.id !== req.params.id);
-        console.log(filteredNotes);
-
-        fs.writeFileSync('./db/db.json', JSON.stringify(filteredNotes));
-        notes = filteredNotes;
-        res.json(filteredNotes);
-    }
-});
 
 // create a new note
 router.post('/notes', (req, res) =>{
