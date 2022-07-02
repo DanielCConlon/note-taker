@@ -6,28 +6,25 @@ const router = require('express').Router();
 const uuid = require('../../helpers/uuid');
 const { readAndAppend, readFromFile, writeToFile } = require ('../../helpers/utils');
 
-// const { 
-//     filterByQuery,
-//     findById,
-//     createNewNote,
-//     validateNote
-//  } = require('../../lib/notes');
-
-// const public = require('../../public/assets/js/index');
 
 // generate unique ids
 
-
+// route for notes
 router.get('/notes', (req, res) => {
     readFromFile("./db/db.json").then((data)=>
     res.json(JSON.parse(data))
     );
+});
 
-    // let results = notes;
-    // if(req.query){
-    //     // results = filterByQuery(req.query, results);
-    // }
-    // res.json(results);
+// create a new note
+router.post('notes', (req, res) => {
+    req.body.id = uuid;
+
+    notes.push(req.body);
+
+    writeToFile('./db/db.json').then((data) => {
+        res.json(notes);
+    });
 });
 
 // router.get('/notes/:id', (req, res) => {
