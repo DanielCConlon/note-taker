@@ -1,4 +1,4 @@
-const db = require('../../db/db.json');
+const notes = require('../../db/db.json');
 const fs = require('fs');
 const router = require('express').Router();
 
@@ -21,7 +21,7 @@ router.get('/notes', (req, res) => {
 });
 
 router.get('/notes/:id', (req, res) => {
-    const result = findbyId(req.params.id, notes);
+    const result = findById(req.params.id, notes);
 
     if(result) {
         res.json(result);
@@ -40,7 +40,7 @@ router.post('/notes', (req, res) =>{
         res.status(400).send('The animal is not properly formatted.')
     }
     else {
-        const newNote = createnewNote(req.body, notes);
+        const newNote = createNewNote(req.body, notes);
         res.json(newnote);
     }
 });
