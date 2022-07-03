@@ -37,20 +37,17 @@ router.post('notes', (req, res) => {
     });
 });
 
-
+// delete a note
 router.delete('/notes/:id', (req, res) => {
-    // const deleteNote = req.params.id;
 
     const result = findById(req.params.id, notes);
 
     if(result){
         var oldNotes = notes;
         let filteredNotes = oldNotes.filter((note) => note.id !== req.params.id);
-        // console.log(filteredNotes);
 
         fs.writeFileSync('./db/db.json', JSON.stringify(filteredNotes));
         notes = filteredNotes;
-        // console.log(newNotes);
         res.json(filteredNotes);
     }
 });
