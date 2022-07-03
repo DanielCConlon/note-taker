@@ -1,4 +1,4 @@
-const notes = require('../../db/db.json');
+let notes = require('../../db/db.json');
 const fs = require('fs');
 const router = require('express').Router();
 
@@ -10,6 +10,7 @@ const {
     createNewNote,
     validateNote
 } =  require('../../lib/notes');
+const { json } = require('express');
 
 
 // generate unique ids
@@ -37,18 +38,19 @@ router.post('notes', (req, res) => {
 });
 
 
-router.delete('/notes/:id', (req, res) => {    
-    req.body.id = notes.length.toString();
+router.delete('/notes/:id', (req, res) => {
+    // const deleteNote = req.params.id;
 
     const result = findById(req.params.id, notes);
-    console.log(result);
+
     if(result){
-        let oldNotes = notes;
+        var oldNotes = notes;
         let filteredNotes = oldNotes.filter((note) => note.id !== req.params.id);
-        console.log(filteredNotes);
+        // console.log(filteredNotes);
 
         fs.writeFileSync('./db/db.json', JSON.stringify(filteredNotes));
         notes = filteredNotes;
+        // console.log(newNotes);
         res.json(filteredNotes);
     }
 });
@@ -56,7 +58,7 @@ router.delete('/notes/:id', (req, res) => {
 
 // create a new note
 router.post('/notes', (req, res) =>{
-    req.body.id = uuid;
+    req.body.id = uuid();
 
     // if any data is incorrect, send 400 error back
     if(!validateNote(req.body)) {
