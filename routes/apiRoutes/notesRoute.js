@@ -4,14 +4,13 @@ const router = require('express').Router();
 
 // helper method for getting unique ids
 const uuid = require('../../helpers/uuid');
-// const { readAndAppend, readFromFile, writeToFile } = require ('../../helpers/utils');
-
 const {
     filterByQuery,
     findById,
     createNewNote,
     validateNote
 } =  require('../../lib/notes');
+
 
 // generate unique ids
 
@@ -37,22 +36,14 @@ router.post('notes', (req, res) => {
     });
 });
 
-router.get('/notes/:id', (req, res) => {
+
+router.delete('/notes/:id', (req, res) => {    
+    req.body.id = notes.length.toString();
+
     const result = findById(req.params.id, notes);
-
-    if(result) {
-        res.json(result);
-    }
-    else{
-        res.send(404);
-    }
-});
-
-router.delete('/notes/:id', (req, res) => {
-    const result = findById(req.params.id, notes);
-
+    console.log(result);
     if(result){
-        var oldNotes = notes;
+        let oldNotes = notes;
         let filteredNotes = oldNotes.filter((note) => note.id !== req.params.id);
         console.log(filteredNotes);
 
@@ -61,6 +52,7 @@ router.delete('/notes/:id', (req, res) => {
         res.json(filteredNotes);
     }
 });
+
 
 // create a new note
 router.post('/notes', (req, res) =>{
