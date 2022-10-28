@@ -2,7 +2,9 @@
 
 GithubRepo: https://github.com/DanielCConlon/note-taker
 Github Pages: https://danielcconlon.github.io/note-taker/
-Heroku: https://note-taker-heroku-display.herokuapp.com/
+Heroku: updated heroku deployment
+
+<!-- https://note-taker-heroku-display.herokuapp.com/ -->
 
 ## Table-of-Contents
 
